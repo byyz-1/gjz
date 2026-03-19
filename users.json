@@ -1,0 +1,42 @@
+[
+  {
+    "friends": [],
+    "friendRequests": [],
+    "id": "1773901614956",
+    "username": "12138",
+    "password": "$2b$10$7k/W0EGjLUtLO8D9xFGCRutJvK8vM.fIEIIW0QsosdH7RS2HLKgVO"
+  },
+  {
+    "friends": [],
+    "friendRequests": [
+      {
+        "from": "1773901847638",
+        "status": "pending",
+        "timestamp": 1773902875769
+      }
+    ],
+    "id": "1773901788145",
+    "username": "11111",
+    "password": "$2b$10$e.7UbdGWNkK1zFrGb.f3Qu9EU8X/Km.h/0HTZQ//4hINI3dyuUXIS"
+  },
+  {
+    "friends": [],
+    "friendRequests": [
+      {
+        "from": "1773902127422",
+        "status": "pending",
+        "timestamp": 1773902380657
+      }
+    ],
+    "id": "1773901847638",
+    "username": "12345",
+    "password": "$2b$10$IsbofMuWuufV9xNQVtRLEuXsiJ8CrzziLgsXMd8Pyav1JKXpaqawK"
+  },
+  {
+    "friends": [],
+    "friendRequests": [],
+    "id": "1773902127422",
+    "username": "123",
+    "password": "$2b$10$dqVxsPXQ/6/VVJ1CTIMo2.xEGDxwzRYlOmf02y1fGnZZg.RZO5Inq"
+  }
+]
