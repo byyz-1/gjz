@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>木石灵枢 - 古建筑文化遗产交互平台</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/jiangsu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/zhejiang.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/guangdong.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/beijing.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/henan.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/shaanxi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/shandong.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/hebei.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/shanxi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/anhui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/fujian.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/jiangxi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/hubei.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/hunan.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/guangxi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/hainan.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/chongqing.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/sichuan.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/guizhou.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/yunnan.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/xizang.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/gansu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/qinghai.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/ningxia.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/xinjiang.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/liaoning.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/jilin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/heilongjiang.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/tianjin.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/neimenggu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/province/shanghai.js"></script>
+
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", "STSong", serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-y: auto;
+            background-color: #000;
+            color: #fff;
+            scroll-behavior: smooth;
+        }
+
+        .header-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5vw;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .nav-logo {
+            font-size: 2rem;
+            color: #ffd700;
+            font-weight: bold;
+            letter-spacing: 4px;
+            cursor: pointer;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2vw;
+            align-items: center;
+        }
+
+        .nav-menu a, .nav-menu button {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            letter-spacing: 1px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-menu a:hover, .nav-menu button:hover {
+            color: #ffd700;
+        }
+
+        .home-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+
+        .bg-video::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .bg-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .ball-container {
+            position: absolute;
+            left: 8vw;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 2vh;
+        }
+
+        .ball {
+             width: 80px;
+             height: 80px;
+             border-radius: 50%;
+             border: 2px solid rgba(255, 255, 255, 0.5);
+             overflow: hidden;
+             cursor: pointer;
+             transition: all 0.5s ease;
+             opacity: 0.7;
+        }
+
+        .ball.active {
+             transform: scale(1.3);
+             opacity: 1;
+             border-color: #ffd700;
+             box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        .ball img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-content {
+            position: absolute;
+            left: 20vw;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            max-width: 600px;
+        }
+
+        .text-content h1 {
+            font-size: 4rem;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        .text-content p {
+            font-size: 1.5rem;
+            color: #ffd700;
+            letter-spacing: 4px;
+            text-shadow: 0 0 8px rgba(0,0,0,0.8);
+        }
+
+        .more-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            border: 1px solid #fff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .more-btn:hover {
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0 0 15px rgba(255,215,0,0.5);
+        }
+
+        .map-page {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            background: #000;
+            padding: 120px 20px 60px;
+            position: relative;
+        }
+
+        .map-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .map-bg-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.2);
+        }
+
+        .map-control {
+            position: relative;
+            z-index: 3;
+            width: 95%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .map-title {
+            color: #ffd700;
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .back-map-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .back-map-btn:hover {
+            background: #ffd700;
+            color: #000;
+        }
+
+        .data-visual-container {
+            position: relative;
+            z-index: 2;
+            width: 95%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+        }
+
+        #map-container {
+            width: 100%;
+            height: 70vh;
+            border-radius: 8px;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        .side-charts {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #trend-chart, #category-chart {
+            width: 100%;
+            height: 34vh;
+            border-radius: 8px;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        .intro-section {
+            width: 95%;
+            margin: 60px auto 0;
+            padding: 30px;
+            border-top: 1px solid rgba(255,215,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .intro-title {
+            color: #ffd700;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .intro-content {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        #detail-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 9999;
+            display: none;
+            padding: 100px 80px;
+            overflow-y: auto;
+        }
+
+        #back-home-btn {
+            position: fixed;
+            top: 40px;
+            right: 60px;
+            color: #ffd700;
+            border: 1px solid #ffd700;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 99999;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 4px;
+        }
+
+        #back-home-btn:hover {
+            background-color: #ffd700;
+            color: #000;
+        }
+
+        .detail-carousel {
+            width: 100%;
+            max-height: 500px;
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border: 2px solid rgba(255,215,0,0.5);
+            overflow: hidden;
+        }
+
+        .carousel-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: none;
+        }
+
+        .carousel-img.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.7);
+            color: #ffd700;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 5;
+        }
+
+        .prev-btn { left: 20px; }
+        .next-btn { right: 20px; }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #det-title {
+            font-size: 3rem;
+            color: #ffd700;
+            letter-spacing: 4px;
+        }
+
+        .collect-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .collect-btn:hover, .collect-btn.active {
+            background: #ffd700;
+            color: #000;
+        }
+
+        #det-content {
+            font-size: 1.2rem;
+            line-height: 2.2;
+            color: #e0e0e0;
+            text-indent: 2em;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .comment-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            border-top: 1px solid rgba(255,215,0,0.3);
+        }
+
+        .comment-title {
+            font-size: 1.8rem;
+            color: #ffd700;
+            margin-bottom: 20px;
+        }
+
+        #comment-editor {
+            height: 150px;
+            background: #111;
+            color: #fff;
+            border: 1px solid rgba(255,215,0,0.3);
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .submit-comment {
+            padding: 10px 20px;
+            background: #ffd700;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-comment:hover {
+            background: #e6c800;
+        }
+
+        .comments-list {
+            margin-top: 30px;
+        }
+
+        .comment-item {
+            padding: 15px;
+            background: #111;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border-left: 3px solid #ffd700;
+        }
+
+        .comment-author {
+            font-size: 1rem;
+            color: #ffd700;
+            margin-bottom: 8px;
+        }
+
+        .comment-content {
+            font-size: 1rem;
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+
+        #ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            display: none;
+        }
+
+        .ai-panel {
+            width: 400px;
+            background: #111;
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ai-header {
+            padding: 15px;
+            background: #ffd700;
+            color: #000;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-close {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .ai-chat {
+            height: 400px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .ai-message {
+            margin-bottom: 15px;
+        }
+
+        .user-msg {
+            text-align: right;
+        }
+
+        .user-msg .msg-content {
+            background: #ffd700;
+            color: #000;
+            padding: 8px 15px;
+            border-radius: 15px 15px 0 15px;
+            display: inline-block;
+        }
+
+        .ai-msg {
+            text-align: left;
+        }
+
+        .ai-msg .msg-content {
+            background: #222;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 15px 15px 15px 0;
+            display: inline-block;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+
+        .ai-input {
+            padding: 15px;
+            border-top: 1px solid rgba(255,215,0,0.3);
+            display: flex;
+            gap: 10px;
+        }
+
+        #ai-input-text {
+            flex: 1;
+            padding: 10px;
+            background: #222;
+            border: 1px solid rgba(255,215,0,0.3);
+            color: #fff;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .ai-send {
+            padding: 10px 20px;
+            background: #ffd700;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #my-collection {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            background: #111;
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            z-index: 99999;
+            display: none;
+            padding: 20px;
+        }
+
+        .collection-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #ffd700;
+            font-size: 1.5rem;
+        }
+
+        .collection-close {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .collection-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .collection-item {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collection-item-name {
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .collection-item-name:hover {
+            color: #ffd700;
+        }
+
+        .remove-collection {
+            color: #ff4444;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <div class="nav-logo" onclick="goHome()">中国古代建筑数据可视化网</div>
+        <nav class="nav-menu">
+            <a href="javascript:goHome()">首页</a>
+            <a href="javascript:goMap()">文物地图</a>
+            <button onclick="toggleCollection()">我的收藏</button>
+            <button onclick="toggleAIAssistant()">AI古建筑助手</button>
+            <button onclick="toggleFriendsPanel()">好友</button>
+            <button id="loginBtn">登录/注册</button>
+        </nav>
+    </header>
+
+    <div class="home-section" id="home">
+        <div class="bg-video">
+            <video id="main-video" loop muted playsinline>
+                <source src="assets/b1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="ball-container">
+            <div class="ball active" data-index="0"><img src="assets/a1.jpg"></div>
+            <div class="ball" data-index="1"><img src="assets/a2.jpg"></div>
+            <div class="ball" data-index="2"><img src="assets/a3.jpg"></div>
+            <div class="ball" data-index="3"><img src="assets/a4.jpg"></div>
+            <div class="ball" data-index="4"><img src="assets/a5.jpg"></div>
+            <div class="ball" data-index="5"><img src="assets/a6.jpg"></div>
+            <div class="ball" data-index="6"><img src="assets/a7.jpg"></div>
+        </div>
+
+        <div class="text-content">
+            <h1 id="main-title">故宫</h1>
+            <p id="main-desc">紫禁之巅，家国天下</p>
+            <a href="javascript:openDetail()" class="more-btn">查看更多</a>
+        </div>
+    </div>
+
+    <div class="map-page" id="mapPage">
+        <div class="map-bg-video">
+            <video id="map-video" loop muted autoplay playsinline>
+                <source src="assets/background.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="map-control">
+            <div class="map-title" id="map-title">全国重点文物保护单位（古建筑类）数据可视化</div>
+            <button class="back-map-btn" id="back-map-btn" onclick="backToPrevMap()">返回上一级地图</button>
+        </div>
+
+        <div class="data-visual-container">
+            <div id="map-container"></div>
+            <div class="side-charts">
+                <div id="trend-chart"></div>
+                <div id="category-chart"></div>
+            </div>
+        </div>
+
+        <div class="intro-section">
+            <h2 class="intro-title">文物保护单位简介</h2>
+            <div class="intro-content">
+                文物保护单位为中国大陆对确定纳入保护对象的不可移动文物的统称，并对文物保护单位本体及周围一定范围实施重点保护的区域。文物保护单位是指在具有历史、艺术、科学价值的古文化遗址、古墓葬、古建筑、石窟寺和石刻等所在地设立的，用于文物保护工作的单位。文物保护单位都是古代科学技术信息的媒体，对于科技史和科学技术研究有着重要意义。<br/><br/>
+                文物保护单位分为三级即全国重点文物保护单位、省级文物保护单位和市县级文物保护单位。文物保护单位根据其级别分别由中华人民共和国国务院、省级政府、市县级政府划定保护范围，设立文物保护标志及说明，建立记录档案，并区别情况分别设置专门机构或者专人负责管理。文物保护单位是禁止燃放烟花爆竹的地点之一。<br/><br/>
+                实践中，文物保护单位的保护范围可依法重新科学划定，并加强对周边施工活动的监管。针对文物保护单位的风貌管控，需坚持“保护第一、传承优先”的原则，注重保护文物及其历史环境的真实性、完整性。文物保护单位的概念最早是1956年国务院《关于在农业生产建设中保护文物的通知》中第一次提出来的，1961年被写入了《文物保护管理暂行条例》，1982年被写入了《文物保护法》。
+            </div>
+        </div>
+    </div>
+
+    <div id="detail-page">
+        <div id="back-home-btn" onclick="backToHome()">返回首页</div>
+        
+        <div class="detail-carousel">
+            <img class="carousel-img active" id="carousel-img-1" src="">
+            <img class="carousel-img" id="carousel-img-2" src="">
+            <img class="carousel-img" id="carousel-img-3" src="">
+            <button class="carousel-btn prev-btn" onclick="prevCarousel()">‹</button>
+            <button class="carousel-btn next-btn" onclick="nextCarousel()">›</button>
+        </div>
+
+        <div class="detail-header">
+            <h2 id="det-title"></h2>
+            <button class="collect-btn" onclick="collectBuilding()">收藏该古建筑</button>
+        </div>
+
+        <p id="det-content"></p>
+
+        <div class="comment-section">
+            <h3 class="comment-title">文化评论区</h3>
+            <div id="comment-editor"></div>
+            <button class="submit-comment" onclick="submitComment()">发布评论</button>
+            <div class="comments-list" id="comments-list"></div>
+        </div>
+    </div>
+
+    <div id="ai-assistant">
+        <div class="ai-panel">
+            <div class="ai-header">
+                <span>AI古建筑助手（小建）</span>
+                <span class="ai-close" onclick="toggleAIAssistant()">×</span>
+            </div>
+            <div class="ai-chat" id="ai-chat">
+                <div class="ai-message">
+                    <div class="msg-content">你好！我是小建，你的专属古建筑AI助手～</div>
+                </div>
+            </div>
+            <div class="ai-input">
+                <input type="text" id="ai-input-text" placeholder="请输入问题...">
+                <button class="ai-send" onclick="sendAIMessage()">发送</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="my-collection">
+        <div class="collection-header">
+            <span>我的古建筑收藏</span>
+            <span class="collection-close" onclick="toggleCollection()">×</span>
+        </div>
+        <div class="collection-list" id="collection-list">
+            <div class="collection-empty" style="color: #999; text-align: center; padding: 20px;">
+                暂无收藏
+            </div>
+        </div>
+    </div>
+<!-- 登录/注册模态框 -->
+<div id="authModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:100000; align-items:center; justify-content:center;">
+  <div style="background:#111; border:1px solid #ffd700; border-radius:8px; width:400px; padding:30px; color:#fff;">
+    <h2 style="color:#ffd700; margin-bottom:20px; text-align:center;" id="authTitle">登录</h2>
+    <input type="text" id="authUsername" placeholder="用户名" style="width:100%; padding:12px; margin-bottom:15px; background:#222; border:1px solid #ffd700; color:#fff; border-radius:4px;">
+    <input type="password" id="authPassword" placeholder="密码" style="width:100%; padding:12px; margin-bottom:20px; background:#222; border:1px solid #ffd700; color:#fff; border-radius:4px;">
+    <div style="display:flex; gap:10px;">
+      <button id="authSubmit" style="flex:1; padding:12px; background:#ffd700; color:#000; border:none; border-radius:4px; cursor:pointer;">登录</button>
+      <button id="toggleAuthMode" style="flex:1; padding:12px; background:transparent; border:1px solid #ffd700; color:#ffd700; border-radius:4px; cursor:pointer;">注册</button>
+    </div>
+    <button id="closeAuth" style="margin-top:15px; width:100%; padding:8px; background:transparent; border:1px solid #666; color:#fff; border-radius:4px; cursor:pointer;">关闭</button>
+  </div>
+</div>
+<div id="friends-panel" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); width:500px; background:#111; border:1px solid #ffd700; border-radius:8px; z-index:100000; padding:20px; color:#fff;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <h2 style="color:#ffd700;">我的好友</h2>
+    <span style="cursor:pointer;" onclick="toggleFriendsPanel()">×</span>
+  </div>
+  <div style="display:flex; gap:10px; border-bottom:1px solid #ffd700; margin-bottom:15px;">
+    <button id="tab-friends" class="tab-btn active" onclick="switchFriendTab('friends')">好友列表</button>
+    <button id="tab-requests" class="tab-btn" onclick="switchFriendTab('requests')">好友请求</button>
+    <button id="tab-add" class="tab-btn" onclick="switchFriendTab('add')">添加好友</button>
+  </div>
+  <div id="friends-content" style="min-height:300px; max-height:400px; overflow-y:auto;"></div>
+</div>
+<script>
+
+const buildingData = [
+    {
+        title: "故宫",
+        desc: "紫禁之巅，家国天下",
+        detail: "故宫即紫禁城，坐落于北京中轴线中心，是明清两代皇家宫殿，世界现存规模最大、保存最完整的木质结构古建筑群。始建于明永乐四年（1406年），1987年列入世界文化遗产。",
+        video: "assets/b1.mp4",
+        imgs: ["assets/a1.jpg","assets/a1-2.jpg","assets/a1-3.jpg"],
+        category: "宫殿建筑"
+    },
+    {
+        title: "天坛",
+        desc: "天圆地方，祈谷承祥",
+        detail: "天坛位于北京南城，明清帝王祭天、祈谷场所，始建于明永乐十八年（1420年），以天圆地方宇宙观为设计核心，1998年入选世界文化遗产。",
+        video: "assets/b2.mp4",
+        imgs: ["assets/a2.jpg","assets/a2-2.jpg","assets/a2-3.jpg"],
+        category: "祭祀建筑"
+    },
+    {
+        title: "宏村",
+        desc: "水墨人家，画里乡村",
+        detail: "宏村位于安徽黄山黟县，皖南徽派古村落代表，始建于南宋，牛形水系贯穿全村，白墙黛瓦，2000年列入世界文化遗产。",
+        video: "assets/b3.mp4",
+        imgs: ["assets/a3.jpg","assets/a3-2.jpg","assets/a3-3.jpg"],
+        category: "民居建筑"
+    },
+    {
+        title: "布达拉宫",
+        desc: "雪域圣殿，佛光永照",
+        detail: "布达拉宫矗立拉萨红山之巅，海拔3700余米，世界海拔最高宫殿群，集宫殿、城堡、寺院于一体，1994年列入世界文化遗产。",
+        video: "assets/b4.mp4",
+        imgs: ["assets/a4.jpg","assets/a4-2.jpg","assets/a4-3.jpg"],
+        category: "宗教建筑"
+    },
+    {
+        title: "承德避暑山庄",
+        desc: "塞外宫阙，清凉胜境",
+        detail: "承德避暑山庄是清代皇帝避暑与理政场所，始建于康熙四十二年，中国现存最大古典皇家园林，1994年列入世界文化遗产。",
+        video: "assets/b5.mp4",
+        imgs: ["assets/a5.jpg","assets/a5-2.jpg","assets/a5-3.jpg"],
+        category: "园林建筑"
+    },
+    {
+        title: "拙政园",
+        desc: "江南雅韵，咫尺山林",
+        detail: "拙政园位于苏州，四大名园之首，江南古典园林典范，以水为核心，疏密有致，1997年入选世界文化遗产。",
+        video: "assets/b6.mp4",
+        imgs: ["assets/a6.jpg","assets/a6-2.jpg","assets/a6-3.jpg"],
+        category: "园林建筑"
+    },
+    {
+        title: "福建土楼",
+        desc: "聚族而居，圆合天地",
+        detail: "福建土楼分布闽西南，客家大型夯土民居，墙体厚实，兼具居住与防御功能，2008年列入世界文化遗产。",
+        video: "assets/b7.mp4",
+        imgs: ["assets/a7.jpg","assets/a7-2.jpg","assets/a7-3.jpg"],
+        category: "民居建筑"
+    }
+];
+
+const nationalMapData = [
+    {name:'北京',value:135},{name:'天津',value:34},{name:'河北',value:291},{name:'山西',value:531},
+    {name:'内蒙古',value:149},{name:'辽宁',value:142},{name:'吉林',value:97},{name:'黑龙江',value:57},
+    {name:'上海',value:40},{name:'江苏',value:251},{name:'浙江',value:281},{name:'安徽',value:175},
+    {name:'福建',value:169},{name:'江西',value:196},{name:'山东',value:226},{name:'河南',value:420},
+    {name:'湖北',value:168},{name:'湖南',value:228},{name:'广东',value:131},{name:'广西',value:81},
+    {name:'海南',value:37},{name:'重庆',value:64},{name:'四川',value:262},{name:'贵州',value:81},
+    {name:'云南',value:170},{name:'西藏',value:70},{name:'陕西',value:270},{name:'甘肃',value:152},
+    {name:'青海',value:51},{name:'宁夏',value:37},{name:'新疆',value:146},{name:'南海诸岛',value:0},{name:'台湾',value:0}
+];
+
+const provinceMapData = {
+    '北京':[{name:'北京市',value:135}],
+    '天津':[{name:'天津市',value:34}],
+    '河北':[
+        {name:'保定市',value:69},{name:'石家庄市',value:40},{name:'邯郸市',value:40},{name:'承德市',value:23},
+        {name:'张家口市',value:22},{name:'唐山市',value:21},{name:'秦皇岛市',value:19},{name:'廊坊市',value:17},
+        {name:'沧州市',value:16},{name:'衡水市',value:15},{name:'邢台市',value:14}
+    ],
+    '山西':[
+        {name:'运城市',value:102},{name:'长治市',value:73},{name:'晋城市',value:72},{name:'晋中市',value:70},
+        {name:'临汾市',value:54},{name:'吕梁市',value:39},{name:'太原市',value:38},{name:'忻州市',value:37},
+        {name:'大同市',value:32},{name:'阳泉市',value:11},{name:'朔州市',value:7}
+    ],
+    '内蒙古':[
+        {name:'赤峰市',value:50},{name:'呼和浩特市',value:21},{name:'鄂尔多斯市',value:14},{name:'呼伦贝尔市',value:13},
+        {name:'乌兰察布市',value:11},{name:'包头市',value:10},{name:'锡林郭勒盟',value:10},{name:'通辽市',value:5},
+        {name:'巴彦淖尔市',value:5},{name:'兴安盟',value:4},{name:'阿拉善盟',value:4},{name:'乌海市',value:2}
+    ],
+    '辽宁':[
+        {name:'沈阳市',value:21},{name:'朝阳市',value:20},{name:'葫芦岛市',value:12},{name:'锦州市',value:11},
+        {name:'大连市',value:11},{name:'鞍山市',value:10},{name:'抚顺市',value:9},{name:'本溪市',value:8},
+        {name:'丹东市',value:8},{name:'辽阳市',value:7},{name:'营口市',value:6},{name:'阜新市',value:5},
+        {name:'铁岭市',value:5},{name:'盘锦市',value:2}
+    ],
+    '吉林':[
+        {name:'通化市',value:17},{name:'长春市',value:13},{name:'吉林市',value:11},{name:'延边朝鲜族自治州',value:10},
+        {name:'四平市',value:9},{name:'白山市',value:8},{name:'白城市',value:5},{name:'松原市',value:5},{name:'辽源市',value:4}
+    ],
+    '黑龙江':[
+        {name:'哈尔滨市',value:11},{name:'牡丹江市',value:10},{name:'齐齐哈尔市',value:9},{name:'鸡西市',value:5},
+        {name:'大庆市',value:4},{name:'佳木斯市',value:4},{name:'黑河市',value:3},{name:'双鸭山市',value:3},
+        {name:'鹤岗市',value:2},{name:'伊春市',value:2},{name:'大兴安岭地区',value:2},{name:'七台河市',value:1},{name:'绥化市',value:1}
+    ],
+    '上海':[{name:'上海市',value:40}],
+    '江苏':[
+        {name:'苏州市',value:61},{name:'南京市',value:55},{name:'扬州市',value:31},{name:'无锡市',value:28},
+        {name:'常州市',value:21},{name:'镇江市',value:18},{name:'淮安市',value:12},{name:'徐州市',value:8},
+        {name:'南通市',value:8},{name:'盐城市',value:7},{name:'宿迁市',value:6},{name:'泰州市',value:6},{name:'连云港市',value:5}
+    ],
+    '浙江':[
+        {name:'杭州市',value:46},{name:'金华市',value:38},{name:'宁波市',value:33},{name:'温州市',value:33},
+        {name:'绍兴市',value:29},{name:'湖州市',value:28},{name:'台州市',value:17},{name:'丽水市',value:17},
+        {name:'衢州市',value:16},{name:'嘉兴市',value:15},{name:'舟山市',value:9}
+    ],
+    '安徽':[
+        {name:'黄山市',value:49},{name:'安庆市',value:17},{name:'宣城市',value:17},{name:'合肥市',value:15},
+        {name:'滁州市',value:15},{name:'六安市',value:11},{name:'池州市',value:10},{name:'马鞍山市',value:9},
+        {name:'亳州市',value:8},{name:'芜湖市',value:8},{name:'蚌埠市',value:7},{name:'淮北市',value:6},
+        {name:'淮南市',value:5},{name:'宿州市',value:4},{name:'阜阳市',value:3},{name:'铜陵市',value:3}
+    ],
+    '福建':[
+        {name:'泉州市',value:44},{name:'福州市',value:25},{name:'漳州市',value:24},{name:'南平市',value:20},
+        {name:'龙岩市',value:16},{name:'宁德市',value:11},{name:'莆田市',value:11},{name:'三明市',value:10},{name:'厦门市',value:8}
+    ],
+    '江西':[
+        {name:'赣州市',value:54},{name:'吉安市',value:34},{name:'上饶市',value:24},{name:'九江市',value:22},
+        {name:'抚州市',value:16},{name:'南昌市',value:12},{name:'景德镇市',value:10},{name:'宜春市',value:9},
+        {name:'萍乡市',value:6},{name:'新余市',value:5},{name:'鹰潭市',value:4}
+    ],
+    '山东':[
+        {name:'济宁市',value:41},{name:'潍坊市',value:20},{name:'青岛市',value:20},{name:'济南市',value:19},
+        {name:'烟台市',value:19},{name:'泰安市',value:15},{name:'淄博市',value:15},{name:'临沂市',value:13},
+        {name:'聊城市',value:12},{name:'菏泽市',value:10},{name:'威海市',value:7},{name:'滨州市',value:5},
+        {name:'日照市',value:6},{name:'东营市',value:6},{name:'德州市',value:3}
+    ],
+    '河南':[
+        {name:'郑州市',value:83},{name:'洛阳市',value:51},{name:'平顶山市',value:28},{name:'焦作市',value:27},
+        {name:'安阳市',value:26},{name:'许昌市',value:26},{name:'三门峡市',value:25},{name:'新乡市',value:22},
+        {name:'商丘市',value:20},{name:'南阳市',value:24},{name:'周口市',value:18},{name:'驻马店市',value:16},
+        {name:'开封市',value:15},{name:'信阳市',value:14},{name:'濮阳市',value:12},{name:'漯河市',value:8},
+        {name:'鹤壁市',value:7},{name:'济源市',value:6}
+    ],
+    '湖北':[
+        {name:'武汉市',value:33},{name:'荆州市',value:24},{name:'襄阳市',value:21},{name:'宜昌市',value:19},
+        {name:'黄冈市',value:17},{name:'十堰市',value:14},{name:'恩施土家族苗族自治州',value:7},{name:'咸宁市',value:7},
+        {name:'孝感市',value:8},{name:'随州市',value:6},{name:'荆门市',value:5},{name:'黄石市',value:3},
+        {name:'鄂州市',value:3},{name:'天门市',value:1},{name:'潜江市',value:1},{name:'仙桃市',value:1}
+    ],
+    '湖南':[
+        {name:'常德市',value:34},{name:'永州市',value:34},{name:'长沙市',value:29},{name:'衡阳市',value:29},
+        {name:'岳阳市',value:24},{name:'怀化市',value:22},{name:'邵阳市',value:21},{name:'郴州市',value:19},
+        {name:'益阳市',value:11},{name:'娄底市',value:10},{name:'张家界市',value:10},{name:'湘潭市',value:8},
+        {name:'湘西土家族苗族自治州',value:7}
+    ],
+    '广东':[
+        {name:'广州市',value:33},{name:'佛山市',value:16},{name:'梅州市',value:12},{name:'潮州市',value:11},
+        {name:'肇庆市',value:10},{name:'江门市',value:9},{name:'东莞市',value:9},{name:'惠州市',value:7},
+        {name:'韶关市',value:6},{name:'中山市',value:5},{name:'汕头市',value:5},{name:'湛江市',value:4},
+        {name:'深圳市',value:3},{name:'揭阳市',value:3},{name:'清远市',value:3},{name:'河源市',value:2},
+        {name:'阳江市',value:2},{name:'茂名市',value:2},{name:'汕尾市',value:1},{name:'云浮市',value:1},{name:'珠海市',value:1}
+    ],
+    '广西':[
+        {name:'桂林市',value:21},{name:'柳州市',value:11},{name:'百色市',value:8},{name:'南宁市',value:6},
+        {name:'崇左市',value:5},{name:'梧州市',value:5},{name:'北海市',value:3},{name:'玉林市',value:3},
+        {name:'贺州市',value:3},{name:'贵港市',value:2},{name:'防城港市',value:2},{name:'钦州市',value:1},
+        {name:'河池市',value:1},{name:'来宾市',value:1}
+    ],
+    '海南':[
+        {name:'海口市',value:10},{name:'三沙市',value:5},{name:'文昌市',value:5},{name:'儋州市',value:3},
+        {name:'三亚市',value:3},{name:'澄迈县',value:3},{name:'陵水县',value:2},{name:'琼海市',value:1},
+        {name:'东方市',value:1},{name:'临高县',value:1},{name:'定安县',value:1},{name:'昌江县',value:1},{name:'万宁市',value:1}
+    ],
+    '重庆':[{name:'重庆市',value:64}],
+    '四川':[
+        {name:'成都市',value:40},{name:'南充市',value:20},{name:'泸州市',value:19},{name:'乐山市',value:18},
+        {name:'宜宾市',value:17},{name:'绵阳市',value:16},{name:'广元市',value:15},{name:'达州市',value:14},
+        {name:'德阳市',value:13},{name:'自贡市',value:12},{name:'雅安市',value:11},{name:'眉山市',value:11},
+        {name:'遂宁市',value:10},{name:'阿坝藏族羌族自治州',value:9},{name:'内江市',value:9},{name:'巴中市',value:9},
+        {name:'甘孜藏族自治州',value:8},{name:'凉山彝族自治州',value:7},{name:'资阳市',value:7},{name:'攀枝花市',value:5}
+    ],
+    '贵州':[
+        {name:'遵义市',value:21},{name:'黔东南苗族侗族自治州',value:20},{name:'黔西南布依族苗族自治州',value:9},
+        {name:'毕节市',value:7},{name:'贵阳市',value:6},{name:'安顺市',value:5},{name:'铜仁市',value:5},
+        {name:'黔南布依族苗族自治州',value:3},{name:'六盘水市',value:3}
+    ],
+    '云南':[
+        {name:'大理白族自治州',value:31},{name:'红河哈尼族彝族自治州',value:30},{name:'昆明市',value:16},
+        {name:'楚雄彝族自治州',value:11},{name:'丽江市',value:9},{name:'保山市',value:9},{name:'普洱市',value:8},
+        {name:'曲靖市',value:8},{name:'临沧市',value:6},{name:'迪庆藏族自治州',value:6},{name:'昭通市',value:5},
+        {name:'玉溪市',value:5},{name:'文山壮族苗族自治州',value:5},{name:'西双版纳傣族自治州',value:4},
+        {name:'怒江傈僳族自治州',value:3},{name:'德宏傣族景颇族自治州',value:2}
+    ],
+    '西藏':[
+        {name:'山南市',value:18},{name:'拉萨市',value:16},{name:'日喀则市',value:15},{name:'昌都市',value:7},
+        {name:'林芝市',value:5},{name:'阿里地区',value:5},{name:'那曲市',value:4}
+    ],
+    '陕西':[
+        {name:'西安市',value:52},{name:'渭南市',value:42},{name:'咸阳市',value:33},{name:'宝鸡市',value:27},
+        {name:'延安市',value:22},{name:'汉中市',value:19},{name:'榆林市',value:17},{name:'铜川市',value:10},
+        {name:'商洛市',value:6},{name:'安康市',value:1},{name:'杨凌示范区',value:1}
+    ],
+    '甘肃':[
+        {name:'庆阳市',value:23},{name:'酒泉市',value:21},{name:'张掖市',value:19},{name:'天水市',value:18},
+        {name:'武威市',value:13},{name:'平凉市',value:13},{name:'陇南市',value:8},{name:'定西市',value:7},
+        {name:'白银市',value:7},{name:'临夏回族自治州',value:7},{name:'甘南藏族自治州',value:7},{name:'兰州市',value:4},
+        {name:'金昌市',value:3},{name:'嘉峪关市',value:2}
+    ],
+    '青海':[
+        {name:'海东市',value:15},{name:'玉树藏族自治州',value:7},{name:'海南藏族自治州',value:7},
+        {name:'海西蒙古族藏族自治州',value:6},{name:'黄南藏族自治州',value:5},{name:'海北藏族自治州',value:4},
+        {name:'西宁市',value:4},{name:'果洛藏族自治州',value:3}
+    ],
+    '宁夏':[
+        {name:'银川市',value:10},{name:'吴忠市',value:9},{name:'固原市',value:8},{name:'中卫市',value:7},{name:'石嘴山市',value:3}
+    ],
+    '新疆':[
+        {name:'喀什地区',value:10},{name:'巴音郭楞蒙古自治州',value:10},{name:'阿克苏地区',value:10},
+        {name:'吐鲁番市',value:9},{name:'和田地区',value:9},{name:'伊犁哈萨克自治州',value:8},
+        {name:'昌吉回族自治州',value:7},{name:'新疆生产建设兵团',value:12},{name:'博尔塔拉蒙古自治州',value:5},
+        {name:'哈密市',value:5},{name:'塔城地区',value:4},{name:'克拉玛依市',value:2},{name:'阿勒泰地区',value:2},
+        {name:'克孜勒苏柯尔克孜自治州',value:2},{name:'乌鲁木齐市',value:1},{name:'石河子市',value:1}
+    ]
+};
+
+// 建筑年代趋势数据
+const trendData = [
+    {name: '唐代', value: 77},
+    {name: '五代', value: 12},
+    {name: '宋辽金', value: 187},
+    {name: '元代', value: 389},
+    {name: '明代', value: 897},
+    {name: '清代', value: 924}
+];
+
+// 建筑类型分布数据
+const categoryData = [
+    {name: '宫殿建筑', value: 110},
+    {name: '祭祀建筑', value: 215},
+    {name: '民居建筑', value: 489},
+    {name: '宗教建筑', value: 627},
+    {name: '园林建筑', value: 128},
+    {name: '其他古建筑', value: 391}
+];
+
+// 全局ECharts实例
+let mapChart, trendChart, categoryChart;
+let currentMapLevel = 'china'; // 当前地图级别：china / province
+let currentProvince = '';      // 当前选中的省份
+
+// 页面加载完成后初始化
+window.onload = function() {
+    // 自动播放首页视频
+    document.getElementById('main-video').play();
+    
+    // 初始化小球切换事件
+    initBallEvents();
+    
+    // 初始化富文本编辑器
+    initEditor();
+    
+    // 初始化收藏功能
+    initCollection();
+};
+
+// 初始化小球切换事件
+function initBallEvents() {
+    const balls = document.querySelectorAll('.ball');
+    balls.forEach(ball => {
+        ball.addEventListener('click', function() {
+            // 移除所有active
+            balls.forEach(b => b.classList.remove('active'));
+            // 添加当前active
+            this.classList.add('active');
+            
+            const index = parseInt(this.dataset.index);
+            const building = buildingData[index];
+            
+            // 更新标题、描述、视频
+            document.getElementById('main-title').textContent = building.title;
+            document.getElementById('main-desc').textContent = building.desc;
+            document.getElementById('main-video').src = building.video;
+            document.getElementById('main-video').play();
+        });
+    });
+}
+
+// 初始化富文本编辑器
+function initEditor() {
+    const quill = new Quill('#comment-editor', {
+        theme: 'snow',
+        placeholder: '请输入你的评论...',
+        modules: {
+            toolbar: [
+                ['bold', 'italic', 'underline'],
+                [{ 'align': [] }],
+                [{ 'color': [] }]
+            ]
+        }
+    });
+    window.commentEditor = quill;
+}
+
+// 初始化收藏功能
+function initCollection() {
+    // 从本地存储读取收藏
+    let collection = localStorage.getItem('buildingCollection');
+    window.collection = collection ? JSON.parse(collection) : [];
+    updateCollectionList();
+}
+
+// 更新收藏列表
+function updateCollectionList() {
+    const list = document.getElementById('collection-list');
+    if (window.collection.length === 0) {
+        list.innerHTML = '<div class="collection-empty" style="color: #999; text-align: center; padding: 20px;">暂无收藏</div>';
+        return;
+    }
+    
+    list.innerHTML = '';
+    window.collection.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'collection-item';
+        div.innerHTML = `
+            <div class="collection-item-name" onclick="openDetailByTitle('${item}')">${item}</div>
+            <div class="remove-collection" onclick="removeCollection('${item}')">×</div>
+        `;
+        list.appendChild(div);
+    });
+}
+
+// 跳转到首页
+function goHome() {
+    document.getElementById('home').style.display = 'block';
+    document.getElementById('mapPage').style.display = 'none';
+    document.getElementById('detail-page').style.display = 'none';
+    document.getElementById('ai-assistant').style.display = 'none';
+    document.getElementById('my-collection').style.display = 'none';
+}
+
+// 跳转到地图页面
+function goMap() {
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('mapPage').style.display = 'block';
+    document.getElementById('detail-page').style.display = 'none';
+    
+    // 初始化地图和图表
+    initMapCharts();
+}
+
+// 初始化地图和图表
+function initMapCharts() {
+    // 初始化全国地图
+    initChinaMap();
+    
+    // 初始化趋势图
+    initTrendChart();
+    
+    // 初始化分类图
+    initCategoryChart();
+}
+
+// 初始化全国地图
+function initChinaMap() {
+    currentMapLevel = 'china';
+    document.getElementById('back-map-btn').style.display = 'none';
+    
+    // 初始化ECharts实例
+    mapChart = echarts.init(document.getElementById('map-container'));
+    
+    // 配置项
+    const option = {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        title: {
+            text: '全国古建筑分布',
+            left: 'left',
+            textStyle: {
+                color: '#ffd700',
+                fontSize: 16
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}: {c} 处'
+        },
+        visualMap: {
+            min: 0,
+            max: 600,
+            left: 'left',
+            bottom: '5%',
+            text: ['高', '低'],
+            calculable: true,
+            inRange: {
+                color: ['#1E90FF', '#87CEFA', '#FFD700', '#FF8C00', '#FF4500']
+            },
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        series: [
+            {
+                name: '古建筑数量',
+                type: 'map',
+                mapType: 'china',
+                roam: true, // 允许缩放和拖拽
+                label: {
+                    show: true,
+                    color: '#fff'
+                },
+                emphasis: {
+                    label: {
+                        color: '#ffd700',
+                        fontSize: 14
+                    },
+                    itemStyle: {
+                        areaColor: '#389BB7'
+                    }
+                },
+                data: nationalMapData
+            }
+        ]
+    };
+    
+    // 设置配置项并渲染
+    mapChart.setOption(option);
+    
+    // 绑定点击事件
+    mapChart.on('click', function(params) {
+        if (params.name === '南海诸岛' || params.name === '台湾') return;
+        
+        currentProvince = params.name;
+        currentMapLevel = 'province';
+        document.getElementById('back-map-btn').style.display = 'block';
+        
+        // 初始化省级地图
+        initProvinceMap(currentProvince);
+    });
+    
+    // 自适应窗口大小
+    window.addEventListener('resize', function() {
+        mapChart.resize();
+        trendChart.resize();
+        categoryChart.resize();
+    });
+}
+
+// 初始化省级地图
+function initProvinceMap(provinceName) {
+    // 替换地图类型（注意echarts的省级地图名称格式）
+    let mapType = provinceName === '内蒙古' ? 'neimenggu' : 
+                  provinceName === '新疆' ? 'xinjiang' : 
+                  provinceName === '西藏' ? 'xizang' : 
+                  provinceName === '广西' ? 'guangxi' : 
+                  provinceName.toLowerCase();
+    
+    // 更新标题
+    document.getElementById('map-title').textContent = `${provinceName}重点文物保护单位（古建筑类）分布`;
+    
+    // 配置项
+    const option = {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        title: {
+            text: `${provinceName}古建筑分布`,
+            left: 'left',
+            textStyle: {
+                color: '#ffd700',
+                fontSize: 16
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}: {c} 处'
+        },
+        visualMap: {
+            min: 0,
+            max: 100,
+            left: 'left',
+            bottom: '5%',
+            text: ['高', '低'],
+            calculable: true,
+            inRange: {
+                color: ['#1E90FF', '#87CEFA', '#FFD700', '#FF8C00', '#FF4500']
+            },
+            textStyle: {
+                color: '#fff'
+            }
+        },
+        series: [
+            {
+                name: '古建筑数量',
+                type: 'map',
+                mapType: provinceName, // 使用省份名称
+                roam: true,
+                label: {
+                    show: true,
+                    color: '#fff'
+                },
+                emphasis: {
+                    label: {
+                        color: '#ffd700',
+                        fontSize: 12
+                    },
+                    itemStyle: {
+                        areaColor: '#389BB7'
+                    }
+                },
+                data: provinceMapData[provinceName] || []
+            }
+        ]
+    };
+    
+    mapChart.setOption(option);
+}
+
+// 返回上一级地图
+function backToPrevMap() {
+    initChinaMap();
+    document.getElementById('map-title').textContent = '全国重点文物保护单位（古建筑类）数据可视化';
+}
+
+// 初始化趋势图（建筑年代分布）
+function initTrendChart() {
+    trendChart = echarts.init(document.getElementById('trend-chart'));
+    
+    const option = {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        title: {
+            text: '建筑年代分布趋势',
+            textStyle: {
+                color: '#ffd700',
+                fontSize: 14
+            },
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                data: trendData.map(item => item.name),
+                axisLine: {
+                    lineStyle: {
+                        color: '#ffd700'
+                    }
+                },
+                axisLabel: {
+                    color: '#fff'
+                }
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                axisLine: {
+                    lineStyle: {
+                        color: '#ffd700'
+                    }
+                },
+                axisLabel: {
+                    color: '#fff'
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: 'rgba(255,215,0,0.2)'
+                    }
+                }
+            }
+        ],
+        series: [
+            {
+                name: '数量',
+                type: 'bar',
+                data: trendData.map(item => item.value),
+                itemStyle: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                        {offset: 0, color: '#FFD700'},
+                        {offset: 1, color: '#FF8C00'}
+                    ])
+                },
+                emphasis: {
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            {offset: 0, color: '#FF8C00'},
+                            {offset: 1, color: '#FF4500'}
+                        ])
+                    }
+                }
+            }
+        ]
+    };
+    
+    trendChart.setOption(option);
+}
+
+// 初始化分类图（建筑类型分布）
+function initCategoryChart() {
+    categoryChart = echarts.init(document.getElementById('category-chart'));
+    
+    const option = {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        title: {
+            text: '古建筑类型分布',
+            textStyle: {
+                color: '#ffd700',
+                fontSize: 14
+            },
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: '{b}: {c} ({d}%)'
+        },
+        legend: {
+            orient: 'vertical',
+            top: 'middle',
+            left: 'left',
+            textStyle: {
+                color: '#fff'
+            },
+            data: categoryData.map(item => item.name)
+        },
+        series: [
+            {
+                name: '建筑类型',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                center: ['60%', '50%'],
+                avoidLabelOverlap: false,
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        color: '#fff',
+                        fontSize: 12,
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: categoryData,
+                itemStyle: {
+                    color: function(params) {
+                        const colorList = [
+                            '#FFD700', '#FFA500', '#FF8C00', 
+                            '#FF6347', '#FF4500', '#DC143C'
+                        ];
+                        return colorList[params.dataIndex];
+                    }
+                }
+            }
+        ]
+    };
+    
+    categoryChart.setOption(option);
+}
+
+// 打开详情页
+function openDetail() {
+    const activeBall = document.querySelector('.ball.active');
+    const index = parseInt(activeBall.dataset.index);
+    showDetail(index);
+}
+
+// 通过标题打开详情页
+function openDetailByTitle(title) {
+    const index = buildingData.findIndex(item => item.title === title);
+    if (index !== -1) {
+        showDetail(index);
+        toggleCollection(); // 关闭收藏面板
+    }
+}
+
+// 显示详情页
+function showDetail(index) {
+    const building = buildingData[index];
+    
+    // 填充数据
+    document.getElementById('det-title').textContent = building.title;
+    document.getElementById('det-content').textContent = building.detail;
+    
+    // 填充轮播图
+    document.getElementById('carousel-img-1').src = building.imgs[0];
+    document.getElementById('carousel-img-2').src = building.imgs[1];
+    document.getElementById('carousel-img-3').src = building.imgs[2];
+    
+    // 重置轮播图
+    const carouselImgs = document.querySelectorAll('.carousel-img');
+    carouselImgs.forEach(img => img.classList.remove('active'));
+    carouselImgs[0].classList.add('active');
+    window.currentCarouselIndex = 0;
+    
+    // 检查是否已收藏
+    const collectBtn = document.querySelector('.collect-btn');
+    if (window.collection.includes(building.title)) {
+        collectBtn.classList.add('active');
+        collectBtn.textContent = '已收藏';
+    } else {
+        collectBtn.classList.remove('active');
+        collectBtn.textContent = '收藏该古建筑';
+    }
+    
+    // 加载评论
+    loadComments(building.title);
+    
+    // 显示详情页
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('mapPage').style.display = 'none';
+    document.getElementById('detail-page').style.display = 'block';
+    document.getElementById('ai-assistant').style.display = 'none';
+}
+
+// 轮播图上一张
+function prevCarousel() {
+    const imgs = document.querySelectorAll('.carousel-img');
+    imgs[window.currentCarouselIndex].classList.remove('active');
+    window.currentCarouselIndex = (window.currentCarouselIndex - 1 + 3) % 3;
+    imgs[window.currentCarouselIndex].classList.add('active');
+}
+
+// 轮播图下一张
+function nextCarousel() {
+    const imgs = document.querySelectorAll('.carousel-img');
+    imgs[window.currentCarouselIndex].classList.remove('active');
+    window.currentCarouselIndex = (window.currentCarouselIndex + 1) % 3;
+    imgs[window.currentCarouselIndex].classList.add('active');
+}
+
+// 收藏古建筑
+function collectBuilding() {
+    const title = document.getElementById('det-title').textContent;
+    const collectBtn = document.querySelector('.collect-btn');
+    
+    const index = window.collection.indexOf(title);
+    if (index === -1) {
+        // 收藏
+        window.collection.push(title);
+        collectBtn.classList.add('active');
+        collectBtn.textContent = '已收藏';
+    } else {
+        // 取消收藏
+        window.collection.splice(index, 1);
+        collectBtn.classList.remove('active');
+        collectBtn.textContent = '收藏该古建筑';
+    }
+    
+    // 保存到本地存储
+    localStorage.setItem('buildingCollection', JSON.stringify(window.collection));
+    updateCollectionList();
+}
+
+// 移除收藏
+function removeCollection(title) {
+    const index = window.collection.indexOf(title);
+    if (index !== -1) {
+        window.collection.splice(index, 1);
+        localStorage.setItem('buildingCollection', JSON.stringify(window.collection));
+        updateCollectionList();
+    }
+}
+
+// 加载评论
+function loadComments(buildingTitle) {
+    const comments = localStorage.getItem(`comments_${buildingTitle}`);
+    const commentList = document.getElementById('comments-list');
+    
+    if (!comments) {
+        commentList.innerHTML = '<div style="color: #999; text-align: center; padding: 10px;">暂无评论，快来发表你的看法吧～</div>';
+        return;
+    }
+    
+    const commentData = JSON.parse(comments);
+    commentList.innerHTML = '';
+    
+    commentData.forEach(comment => {
+        const div = document.createElement('div');
+        div.className = 'comment-item';
+        div.innerHTML = `
+            <div class="comment-author">游客 · ${comment.time}</div>
+            <div class="comment-content">${comment.content}</div>
+        `;
+        commentList.appendChild(div);
+    });
+}
+
+// 提交评论
+function submitComment() {
+    const content = window.commentEditor.getText().trim();
+    if (!content) {
+        alert('请输入评论内容！');
+        return;
+    }
+    
+    const buildingTitle = document.getElementById('det-title').textContent;
+    const now = new Date();
+    const time = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+    
+    // 读取现有评论
+    let comments = localStorage.getItem(`comments_${buildingTitle}`);
+    comments = comments ? JSON.parse(comments) : [];
+    
+    // 添加新评论
+    comments.push({
+        content: content,
+        time: time
+    });
+    
+    // 保存评论
+    localStorage.setItem(`comments_${buildingTitle}`, JSON.stringify(comments));
+    
+    // 清空编辑器
+    window.commentEditor.setText('');
+    
+    // 重新加载评论
+    loadComments(buildingTitle);
+}
+
+// 切换AI助手
+function toggleAIAssistant() {
+    const aiPanel = document.getElementById('ai-assistant');
+    aiPanel.style.display = aiPanel.style.display === 'block' ? 'none' : 'block';
+}
+
+// 新增：HTML转义函数（防止XSS注入）
+function escapeHtml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+async function sendAIMessage() {
+  const input = document.getElementById('ai-input-text');
+  const content = input.value.trim();
+  if (!content) return;
+
+  const chatBox = document.getElementById('ai-chat');
+  chatBox.innerHTML += `
+    <div class="ai-message user-msg">
+      <div class="msg-content">${content}</div>
+    </div>
+  `;
+  input.value = '';
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // 显示加载中
+  const loadingId = 'loading-' + Date.now();
+  chatBox.innerHTML += `
+    <div class="ai-message ai-msg" id="${loadingId}">
+      <div class="msg-content">小建正在思考...</div>
+    </div>
+  `;
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  try {
+    const response = await fetch("http://localhost:3000/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ prompt: content })
+    });
+
+    document.getElementById(loadingId).remove();
+
+    const data = await response.json();
+    const reply = data.choices?.[0]?.message?.content || JSON.stringify(data, null, 2);
+
+    chatBox.innerHTML += `
+      <div class="ai-message ai-msg">
+        <div class="msg-content">${reply}</div>
+      </div>
+    `;
+  } catch (err) {
+    document.getElementById(loadingId).remove();
+    chatBox.innerHTML += `
+      <div class="ai-message ai-msg">
+        <div class="msg-content" style="color:#ffd700;">⚠️ 连接失败，请确保后端已启动</div>
+      </div>
+    `;
+    console.error(err);
+  } finally {
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+}
+
+// 增加回车发送
+document.querySelector("#ai-input-text").onkeydown = (e) => {
+  if (e.key === "Enter") sendAIMessage();
+};
+
+// 切换收藏面板
+function toggleCollection() {
+    const collectionPanel = document.getElementById('my-collection');
+    collectionPanel.style.display = collectionPanel.style.display === 'block' ? 'none' : 'block';
+}
+
+// 返回首页
+function backToHome() {
+    goHome();
+}
+
+/// ---------- 登录/注册功能 ----------
+function showAuthModal(mode) {
+  const modal = document.getElementById('authModal');
+  if (!modal) return alert('模态框元素未找到');
+  modal.style.display = 'flex';
+  document.getElementById('authTitle').textContent = mode === 'login' ? '登录' : '注册';
+  document.getElementById('authSubmit').textContent = mode === 'login' ? '登录' : '注册';
+  window.authMode = mode;
+}
+
+document.getElementById('closeAuth').addEventListener('click', () => {
+  document.getElementById('authModal').style.display = 'none';
+});
+
+document.getElementById('toggleAuthMode').addEventListener('click', () => {
+  const newMode = window.authMode === 'login' ? 'register' : 'login';
+  showAuthModal(newMode);
+});
+
+document.getElementById('authSubmit').addEventListener('click', async () => {
+  const username = document.getElementById('authUsername').value.trim();
+  const password = document.getElementById('authPassword').value.trim();
+  if (!username || !password) {
+    alert('请输入用户名和密码');
+    return;
+  }
+
+  const url = window.authMode === 'login' 
+    ? 'http://localhost:3000/api/login' 
+    : 'http://localhost:3000/api/register';
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      alert(data.error || '操作失败');
+      return;
+    }
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('username', data.username);
+    document.getElementById('authModal').style.display = 'none';
+    updateUserUI();
+    alert(`${window.authMode === 'login' ? '登录' : '注册'}成功！`);
+  } catch (err) {
+    alert('网络错误，请确保后端已启动');
+  }
+});
+
+function updateUserUI() {
+  const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username');
+  const loginBtn = document.getElementById('loginBtn');
+  if (token && username) {
+    loginBtn.textContent = `欢迎，${username}`;
+  } else {
+    loginBtn.textContent = '登录/注册';
+  }
+}
+
+// 登录按钮点击事件（确保元素已加载）
+document.getElementById('loginBtn').addEventListener('click', () => {
+  showAuthModal('login');
+});
+
+// 页面加载时更新UI
+updateUserUI();
+// ---------- 好友功能 ----------
+function toggleFriendsPanel() {
+  const panel = document.getElementById('friends-panel');
+  if (!panel) return;
+  if (panel.style.display === 'block') {
+    panel.style.display = 'none';
+  } else {
+    panel.style.display = 'block';
+    loadFriendsList(); // 默认加载好友列表
+  }
+}
+
+function switchFriendTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  if (tab === 'friends') loadFriendsList();
+  else if (tab === 'requests') loadFriendRequests();
+  else if (tab === 'add') showAddFriendUI();
+}
+
+async function loadFriendsList() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    document.getElementById('friends-content').innerHTML = '<p style="color:#999; text-align:center;">请先登录</p>';
+    return;
+  }
+  try {
+    const res = await fetch('http://localhost:3000/api/friends', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('加载失败');
+    const friends = await res.json();
+    const content = document.getElementById('friends-content');
+    if (friends.length === 0) {
+      content.innerHTML = '<p style="text-align:center; color:#999;">暂无好友</p>';
+    } else {
+      content.innerHTML = friends.map(f => `
+        <div style="padding:10px; border-bottom:1px solid #333; display:flex; justify-content:space-between;">
+          <span>${f.username}</span>
+          <button onclick="removeFriend('${f.id}')" style="background:transparent; border:1px solid #ff4444; color:#ff4444; border-radius:4px; padding:2px 8px;">删除</button>
+        </div>
+      `).join('');
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('friends-content').innerHTML = '<p style="color:#ff4444;">加载失败</p>';
+  }
+}
+
+async function loadFriendRequests() {
+  const token = localStorage.getItem('token');
+  if (!token) return;
+  try {
+    const res = await fetch('http://localhost:3000/api/friend-requests', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('加载失败');
+    const requests = await res.json();
+    const content = document.getElementById('friends-content');
+    if (requests.length === 0) {
+      content.innerHTML = '<p style="text-align:center; color:#999;">暂无好友请求</p>';
+    } else {
+      content.innerHTML = requests.map(r => `
+        <div style="padding:10px; border-bottom:1px solid #333; display:flex; justify-content:space-between; align-items:center;">
+          <span>${r.fromUsername} 请求添加你为好友</span>
+          <div>
+            <button onclick="handleFriendRequest('${r.fromUserId}', 'accept')" style="background:#ffd700; color:#000; border:none; border-radius:4px; padding:5px 10px; margin-right:5px;">接受</button>
+            <button onclick="handleFriendRequest('${r.fromUserId}', 'reject')" style="background:transparent; border:1px solid #ffd700; color:#ffd700; border-radius:4px; padding:5px 10px;">拒绝</button>
+          </div>
+        </div>
+      `).join('');
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('friends-content').innerHTML = '<p style="color:#ff4444;">加载失败</p>';
+  }
+}
+
+async function handleFriendRequest(fromUserId, action) {
+  const token = localStorage.getItem('token');
+  try {
+    const res = await fetch('http://localhost:3000/api/friend-request/handle', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ fromUserId, action })
+    });
+    if (res.ok) {
+      alert(action === 'accept' ? '已添加好友' : '已拒绝');
+      loadFriendRequests(); // 刷新请求列表
+      if (action === 'accept') loadFriendsList(); // 刷新好友列表
+    } else {
+      const err = await res.json();
+      alert(err.error || '操作失败');
+    }
+  } catch (err) {
+    alert('网络错误');
+  }
+}
+
+function showAddFriendUI() {
+  const content = document.getElementById('friends-content');
+  content.innerHTML = `
+    <div style="margin-bottom:15px;">
+      <input type="text" id="search-user-input" placeholder="输入用户名搜索" style="width:70%; padding:8px; background:#222; border:1px solid #ffd700; color:#fff; border-radius:4px;">
+      <button onclick="searchUsers()" style="padding:8px 15px; background:#ffd700; color:#000; border:none; border-radius:4px; margin-left:5px;">搜索</button>
+    </div>
+    <div id="search-results"></div>
+  `;
+}
+
+async function searchUsers() {
+  const keyword = document.getElementById('search-user-input').value.trim();
+  if (!keyword) return;
+  const token = localStorage.getItem('token');
+  try {
+    const res = await fetch(`http://localhost:3000/api/users/search?q=${encodeURIComponent(keyword)}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('搜索失败');
+    const users = await res.json();
+    const resultsDiv = document.getElementById('search-results');
+    if (users.length === 0) {
+      resultsDiv.innerHTML = '<p style="color:#999;">未找到用户</p>';
+    } else {
+      resultsDiv.innerHTML = users.map(u => `
+        <div style="padding:10px; border-bottom:1px solid #333; display:flex; justify-content:space-between;">
+          <span>${u.username}</span>
+          <button onclick="sendFriendRequest('${u.id}')" style="background:transparent; border:1px solid #ffd700; color:#ffd700; border-radius:4px; padding:2px 8px;">加好友</button>
+        </div>
+      `).join('');
+    }
+  } catch (err) {
+    alert('搜索失败');
+  }
+}
+
+async function sendFriendRequest(targetUserId) {
+  const token = localStorage.getItem('token');
+  try {
+    const res = await fetch('http://localhost:3000/api/friend-request/send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ targetUserId })
+    });
+    if (res.ok) {
+      alert('好友请求已发送');
+    } else {
+      const err = await res.json();
+      alert(err.error || '发送失败');
+    }
+  } catch (err) {
+    alert('网络错误');
+  }
+}
+
+// 删除好友
+async function removeFriend(friendId) {
+  if (!confirm('确定要删除该好友吗？')) return;
+  alert('该功能待实现，请在后端添加 DELETE /api/friends/:friendId 接口');
+}
+// ---------- 滚轮切换球功能 ----------
+document.getElementById('home').addEventListener('wheel', function(e) {
+    e.preventDefault(); // 阻止页面滚动
+    const balls = document.querySelectorAll('.ball');
+    const activeBall = document.querySelector('.ball.active');
+    if (!activeBall) return;
+    let activeIndex = parseInt(activeBall.dataset.index);
+    // 根据滚轮方向确定新索引
+    if (e.deltaY > 0) {
+        // 向下滚动，切换到下一个
+        activeIndex = (activeIndex + 1) % balls.length;
+    } else {
+        // 向上滚动，切换到上一个
+        activeIndex = (activeIndex - 1 + balls.length) % balls.length;
+    }
+    // 更新active类
+    balls.forEach(b => b.classList.remove('active'));
+    balls[activeIndex].classList.add('active');
+    // 更新标题、描述、视频
+    const building = buildingData[activeIndex];
+    document.getElementById('main-title').textContent = building.title;
+    document.getElementById('main-desc').textContent = building.desc;
+    document.getElementById('main-video').src = building.video;
+    document.getElementById('main-video').play();
+}, { passive: false });
+</script>
+</body>
+</html>

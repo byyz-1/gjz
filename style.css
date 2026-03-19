@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: "Microsoft YaHei", sans-serif;
+    color: white;
+    overflow: hidden; /* 暂时隐藏滚动条，保持全屏 */
+}
+
+/* 视频背景容器 */
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 放在最底层 */
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 视频铺满屏幕 */
+}
+
+/* 黑色半透明遮罩，让文字更清晰 */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* 导航栏样式 */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 80px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 40px;
+    cursor: pointer;
+}
+
+/* 主标题样式 */
+.hero-section {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+}
+
+.explore-btn {
+    padding: 15px 40px;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 30px;
+}
+
+.explore-btn:hover {
+    background: white;
+    color: black;
+}
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.tab-btn.active {
+  color: #ffd700;
+  border-bottom-color: #ffd700;
+}
